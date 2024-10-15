@@ -62,56 +62,61 @@ void delete_list(NODO **ini) {
   }
 }
 
-NODO *split(NODO *ini) {
-  NODO *fast = ini;
-  NODO *slow = ini;
-  while (fast != NULL && fast->der != NULL) {
+NODO *split(NODO *head) {
+  NODO *fast = head;
+  NODO *slow = head;
+
+  while (fast != NULL && fast->der != NULL && fast->der->der != NULL) {
     fast = fast->der->der;
-    if (fast != NULL) {
-      slow = slow->der;
-    }
+    slow = slow->der;
   }
 
   NODO *temp = slow->der;
   slow->der = NULL;
+  if (temp != NULL) {
+    temp->izq = NULL;
+  }
   return temp;
 }
 
 NODO *merge(NODO *first, NODO *second) {
 
-  NODO *tmp = NULL;
-
-  if (first == NULL) {
+  if (first == NULL)
     return second;
-  }
-  if (second == NULL) {
+  if (second == NULL)
     return first;
-  }
 
   if (first->peso < second->peso) {
-    tmp = merge(first->der, second);
-    first->der = tmp;
-    tmp->izq = first;
+
+    first->der = merge(first->der, second);
+    if (first->der != NULL) {
+      first->der->izq = first;
+    }
+    first->izq = NULL;
     return first;
   } else {
-    tmp = merge(first, second->der);
-    second->der = tmp;
-    tmp->izq = second;
+
+    second->der = merge(first, second->der);
+    if (second->der != NULL) {
+      second->der->izq = second;
+    }
+    second->izq = NULL;
     return second;
   }
 }
 
-NODO *mergesort(NODO *ini) {
-  if (ini == NULL || ini->der == NULL) {
-    return ini;
+NODO *MergeSort(NODO *head) {
+
+  if (head == NULL || head->der == NULL) {
+    return head;
   }
 
-  NODO *second = split(ini);
+  NODO *second = split(head);
 
-  ini = mergesort(ini);
-  second = mergesort(second);
+  head = MergeSort(head);
+  second = MergeSort(second);
 
-  return merge(ini, second);
+  return merge(head, second);
 }
 
 void imprimir_lista(NODO *ini) {
@@ -135,31 +140,33 @@ int main() {
   imprimir_lista(ini);
   printf("\n");
 
+  // insertar elementos
   for (i = 0; i < 20; i++) {
     T = crear_nodo();
     T->peso = 20 - i;
     insert_node(T, actual);
     actual = T;
   }
-  printf("\n ini: %d\n", ini->peso);
-  printf("\n ini->der: %d\n", ini->der->peso);
-  printf("\n ini->der->der: %d\n", ini->der->der->peso);
+  // Numero demasiado grande para imprimir los 20 elementos
+  fin->peso = 100000000;
+
+  int peso_delete = delete_node(ini, 15);
+  printf("\nEl elemento eliminado es: %d\n", peso_delete);
 
   printf("\n");
   imprimir_lista(ini);
   printf("\n");
 
-  // delete_list(&ini);
-  // int val = delete_node(ini, 17);
-
-  ini = mergesort(ini);
+  ini = MergeSort(ini);
 
   printf("\nImprime la lista despues de ordenacion\n");
-  // printf("\n Lista despues de la eliminacion del nodo %d\n", val);
   imprimir_lista(ini);
-  printf("\n ini: %p\n", &ini);
-  printf("\n ini->der: %d\n", ini->peso);
-  printf("\n fin: %p\n", &fin);
-  // printf("\n");
+
+  printf("\nEliminar la lista\n");
+  delete_list(&ini);
+
+  printf("\nImpresion de la lista depues de la eliminacion\n");
+  imprimir_lista(ini);
+
   return 0;
 }
