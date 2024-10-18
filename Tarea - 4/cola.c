@@ -70,19 +70,19 @@ int main() {
 
   crear_lista(&ini, &fin);
 
-  printf("\nValor del pop: %p\n", fin);
   if (isempty(ini, fin)) {
     printf("\nLa pila esta vacia\n");
   }
 
   // insertar elementos
+  printf("\nInsercion de elementos\n");
   for (i = 0; i < 20; i++) {
     push(ini, i + 1);
   }
   imprimir_lista(ini);
 
   int valor = pop(&ini);
-  printf("\nValor del pop %d: %p\n", valor, fin);
+  printf("\nValor del pop %d: \n", valor);
   printf("\nImpresion de la lista despues del pop\n");
   imprimir_lista(ini);
 
