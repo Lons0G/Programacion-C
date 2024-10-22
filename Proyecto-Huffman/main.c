@@ -43,64 +43,82 @@ HEAP *Crear_heap(int capacity) {
   heap->capacity = capacity;
 
   heap->lista = (NODO *)malloc(capacity * sizeof(NODO));
-
   return heap;
+}
+
+void insert_node(HEAP *heap, NODO *nodo) {
+  if (heap->size < heap->capacity) {
+    heap->lista[heap->size] = *nodo;
+    heapify_bt(heap, heap->size);
+    heap->size++;
+  }
 }
 
 void heapify_bt(HEAP *heap, int i) {
   int padre = (i - 1) / 2;
-  NODO *temp;
+  NODO temp;
   if (heap->lista[padre].frecuencia > heap->lista[i].frecuencia) {
-    *temp = heap->lista[padre];
+    temp = heap->lista[padre];
     heap->lista[padre] = heap->lista[i];
-    heap->lista[i] = *temp;
+    heap->lista[i] = temp;
     heapify_bt(heap, padre);
   }
 }
 
 void heapify_tb(HEAP *heap, int i) {
-  int left = 2 * i + 1;
-  int right = 2 * i + 2;
+  int left = i * 2 + 1;
+  int right = i * 2 + 2;
   int min;
-  NODO *temp;
-  int aux = 1;
-
-  if (left >= heap->size || right >= heap->size) {
+  NODO temp;
+  printf("inicio de funcion\n");
+  if (left >= heap->size || left <= 0) {
     left = -1;
-    right = -1;
   }
-
+  if (right >= heap->size || right <= 0) {
+    left = -1;
+  }
+  printf("se ejecuta condiciones left y right\n");
   if (left != -1 && heap->lista[left].frecuencia < heap->lista[i].frecuencia) {
     min = left;
+    printf("ejecuto if left\n");
   } else {
     min = i;
   }
   if (right != -1 &&
       heap->lista[right].frecuencia < heap->lista[i].frecuencia) {
+    printf("ejecuto if right\n");
     min = right;
   }
-
+  printf("ejecto hasta aqui\n");
   if (min != i) {
-    *temp = heap->lista[min];
+    temp = heap->lista[min];
+    printf(" temp = heap min ");
     heap->lista[min] = heap->lista[i];
-    heap->lista[i] = *temp;
-
+    printf(" heap min = heap i ");
+    heap->lista[i] = temp;
+    printf("heap i = temp\n");
     heapify_tb(heap, min);
   }
 }
 
-NODO *Pop(HEAP *heap) {
-  NODO *pop;
+NODO Pop(HEAP *heap) {
+  NODO pop;
+  pop.caracter = '!';
+  pop.frecuencia = -1;
+
   if (heap->size == 0) {
     printf("\nLista vacia\n");
-    return NULL;
+    return pop;
   }
 
-  *pop = heap->lista[0];
+  pop = heap->lista[0];
+  printf("se asigna nodo 0 al pop\n");
   heap->lista[0] = heap->lista[heap->size - 1];
+  printf("se asigna nodo 1 al 0\n");
   heap->size -= 1;
+  printf("size de heap: %d\n", heap->size);
   heapify_tb(heap, 0);
-
+  printf("se ejcuto todo\n");
   return pop;
 }
 
@@ -123,8 +141,29 @@ void frecuencias(char *path, int *frec) {
   }
 }
 
-int main() {
+// Funcion para crear nodos con sus frecuencias
+void Nodes_freq(HEAP *heap, int *frec) {
+  for (int i = 0; i < 26; i++) {
+    if (frec[i] != 0) {
+      if (i == 25) {
+        NODO *T = crear_nodo(frec[25], 32);
+        insert_node(heap, T);
+      } else {
+        NODO *T = crear_nodo(frec[i], i + 65);
+        insert_node(heap, T);
+      }
+    }
+  }
+}
 
+void print_minheap(HEAP *heap) {
+  for (int i = 0; i < heap->size; i++) {
+    printf("Nodo %d: frecuencia: %d, caracter %c\n", i,
+           heap->lista[i].frecuencia, heap->lista[i].caracter);
+  }
+}
+
+int main() {
   NODO *hoja;
   hoja = (NODO *)malloc(sizeof(NODO));
 
@@ -136,14 +175,28 @@ int main() {
   int freq[26] = {0};
   int *p_array = freq;
 
-  char ruta[] = "p.txt";
+  char ruta[] = "texto.txt";
   char *path = ruta;
 
   frecuencias(path, p_array);
 
+  printf("Obtencion de la frecuencias de los caracteres\n");
   for (int i = 0; i < 26; i++) {
     printf(" %d ", freq[i]);
   }
 
+  printf("\nCreando el Min Heap\n");
+  HEAP *heap = Crear_heap(26);
+  Nodes_freq(heap, p_array);
+
+  print_minheap(heap);
+
+  for (int i = 0; i < heap->size; i++) {
+    NODO T = Pop(heap);
+    printf("Pop Nodo: frecuencia = %d, caracter = %c", T.frecuencia,
+           T.caracter);
+  }
+
+  printf("\n");
   return 0;
 }
