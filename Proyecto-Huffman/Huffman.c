@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_LINE_LENGTH 1024
+#define MAX_LINE_LENGTH 2048
 
-#define MAX_TEXT_LENGTH 4096
-#define MAX_CODE_LENGTH 100
+#define MAX_TEXT_LENGTH 5120
+#define MAX_CODE_LENGTH 128
 #define MAX_CHAR 256
 
 typedef struct HuffmanNode {
@@ -135,14 +135,14 @@ void generateHuffmanCodes(HuffmanNode *root, char *code, int top,
 // Función para codificar el texto
 void encodeText(const char *text, char codes[MAX_CHAR][MAX_CODE_LENGTH],
                 char *encodedText) {
-  encodedText[0] = '\0'; // Inicializar la cadena codificada
+  encodedText[0] = '\0';
   for (int i = 0; text[i] != '\0'; i++) {
     strcat(encodedText, codes[(unsigned char)text[i]]);
   }
 }
 
 void writeCompressedFile(const char *filename, const char *encodedText) {
-  FILE *file = fopen(filename, "ab");
+  FILE *file = fopen(filename, "wb");
   if (file == NULL) {
     perror("Error al abrir el archivo");
     return;
@@ -174,7 +174,7 @@ void writeCompressedFile(const char *filename, const char *encodedText) {
 }
 
 char *readCompressedFile(const char *filename, int *bitLength) {
-  FILE *file = fopen(filename, "rb"); // Abrir en modo binario
+  FILE *file = fopen(filename, "rb");
   if (file == NULL) {
     perror("Error al abrir el archivo");
     return NULL;
@@ -221,15 +221,11 @@ void readFileAndEncode(const char *filename, HuffmanNode *root,
   }
 
   char line[MAX_LINE_LENGTH];
-  char encodedText[MAX_TEXT_LENGTH]; // Suficiente espacio para el texto
-                                     // codificado
+  char encodedText[MAX_TEXT_LENGTH];
 
-  // Leer el archivo línea por línea
   while (fgets(line, sizeof(line), file) != NULL) {
-    // Eliminar el salto de línea al final, si existe
     line[strcspn(line, "\n")] = 0;
 
-    // Codificar la línea
     encodeText(line, codes, encodedText);
 
     writeCompressedFile("archivo_comprimido.bin", encodedText);
@@ -295,7 +291,6 @@ void decodeFile(const char *filename, HuffmanNode *root) {
   free(decodedText);
 }
 
-// Ejemplo de uso
 int main() {
   char characters[MAX_CHAR];
   int frequencies[MAX_CHAR];
@@ -303,14 +298,12 @@ int main() {
 
   getCharactersAndFrequencies("texto.txt", characters, frequencies, &size);
 
-  // Imprimir los caracteres y sus frecuencias
   for (int i = 0; i < size; i++) {
     printf("Carácter: '%c', Frecuencia: %d\n", characters[i], frequencies[i]);
   }
 
   HuffmanNode *root = BuildHuffmanTree(characters, frequencies, size);
 
-  // Generar los códigos de Huffman
   char codes[MAX_CHAR][MAX_CODE_LENGTH];
   char code[MAX_CODE_LENGTH];
   char encodedText[MAX_CHAR * MAX_CODE_LENGTH];
