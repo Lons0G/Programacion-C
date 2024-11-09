@@ -9,23 +9,21 @@ public:
   Nodo *der;
 
   Nodo(int valor) {
-    std::cout << "Creando un nodo con el valor \n" << valor << std::endl;
+    std::cout << "Creando un nodo con el valor " << valor << std::endl;
     this->valor = valor;
     this->izq = nullptr;
     this->der = nullptr;
   }
   Nodo(int valor, Nodo *izquierdo) {
     std::cout << "Creando un nodo con el valor " << valor
-              << " y asignando un nodo a la izquierda\n"
-              << std::endl;
+              << " y asignando un nodo a la izquierda" << std::endl;
     this->valor = valor;
     this->izq = izquierdo;
     this->der = nullptr;
   }
   ~Nodo() {
     std::cout << "Destruyendo un nodo con el valor " << valor
-              << " y volviendo null izquierdo y derecho\n"
-              << std::endl;
+              << " y volviendo null izquierdo y derecho" << std::endl;
     this->izq = nullptr;
     this->der = nullptr;
   }
