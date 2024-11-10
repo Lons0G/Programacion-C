@@ -23,15 +23,6 @@ void alfabeto_shuffle(int arr[]) {
   }
 }
 
-int buscarIndice(int arreglo[28], int valor) {
-  for (int i = 0; i < 28; i++) {
-    if (arreglo[i] == valor) {
-      return i;
-    }
-  }
-  return 0;
-}
-
 int main() {
   // Arreglo para almacenar los valores ASCII del alfabeto (minúsculas)
   int ascii_original[28];
@@ -71,6 +62,11 @@ int main() {
   printf("ascii original\n");
   imprimirAlfabeto(ascii_original);
 
+  printf("Colocando el alfabeto cambiado\n");
+  for (int i = 0; i < 28; i++) {
+    fprintf(archivo_codificado, "%d\n", ascii_alfabeto[i]);
+  }
+
   printf("Leyendo el archivo de texto original\n");
   int pass = 0;
   char buffer;
@@ -93,22 +89,5 @@ int main() {
   fclose(archivo);
   fclose(archivo_codificado);
 
-  printf("Leyendo el archivo de texto codificado\n");
-  FILE *archivo_codificado_c = fopen(file_codec, "r");
-  char bufferc;
-  int indice = 0;
-  while ((bufferc = fgetc(archivo_codificado_c)) != EOF) {
-    // Condiciones por si encuentra una ñ asignarle su valor en ascii
-    if (bufferc != -16) {
-      if (bufferc == -92) {
-        indice = buscarIndice(ascii_alfabeto, 164);
-      } else {
-        indice = buscarIndice(ascii_alfabeto, bufferc);
-      }
-      printf("%c", ascii_original[indice]);
-    }
-  }
-
-  fclose(archivo_codificado);
   return 0;
 }
