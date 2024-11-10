@@ -16,7 +16,7 @@ public:
     delete[] hijos;
   }
 
-  // Método para agregar un hijo
+  // Metodo para agregar un hijo
   bool agregarHijo(Nodo *hijo) {
     if (numHijos < capacidad) {
       hijos[numHijos++] = hijo;
@@ -58,7 +58,7 @@ public:
     eliminarNodo(raiz);
   }
 
-  // Método recursivo para eliminar nodos
+  // Metodo ecursivo para eliminar nodos
   void eliminarNodo(Nodo *nodo) {
     if (nodo) {
       for (int i = 0; i < nodo->numHijos; i++) {
@@ -68,7 +68,7 @@ public:
     }
   }
 
-  // Método para agregar tres hijos a un nodo específico
+  // Metodo para agregar tres hijos a un nodo
   void InsertarNodos(Nodo *nodo) {
     if (nodo) {
       nodo->InsertarHijos();
@@ -77,7 +77,7 @@ public:
     }
   }
 
-  // Método recursivo para imprimir el árbol
+  // Metodo recursivo para imprimir el arbol
   void imprimirArbol(Nodo *nodo, int nivel = 0) {
     if (nodo) {
       for (int i = 0; i < nivel; i++) {
@@ -104,7 +104,7 @@ int main() {
   arbol.InsertarNodos(arbol.raiz->hijos[1]);
   arbol.InsertarNodos(arbol.raiz->hijos[2]);
 
-  // Imprimir el árbol
+  // Se imprime el arbol
   arbol.imprimir();
 
   return 0;

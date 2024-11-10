@@ -91,7 +91,6 @@ int simulacion() {
     int seleccion_categoria = numeros[indiceAleatorio];
 
     // std::cout << "Categoria seleccionada: " << seleccion_categoria <<
-    // std::endl;
 
     numeros.erase(numeros.begin() + indiceAleatorio);
 
@@ -99,15 +98,8 @@ int simulacion() {
       dados[i] = rand() % 6 + 1;
     }
 
-    // std::cout << "Valores del los dados: " << std::endl;
-    // for (int i = 0; i < dados.size(); ++i) {
-    //   std::cout << dados[i] << " ";
-    // }
-    // std::cout << "\n";
-
     switch (seleccion_categoria) {
     case 1:
-      // std::cout << "Categoria UNOS" << std::endl;
 
       archivo << "Dados 1: " << " ";
       for (int i = 0; i < dados.size(); ++i) {
@@ -118,7 +110,6 @@ int simulacion() {
       archivo << "\n";
       break;
     case 2:
-      // archivo << "Categoria DOS" << std::endl;
 
       archivo << "Dados 1: " << " ";
       for (int i = 0; i < dados.size(); ++i) {
@@ -129,7 +120,6 @@ int simulacion() {
       archivo << "\n";
       break;
     case 3:
-      // archivo << "Categoria TRES" << std::endl;
 
       archivo << "Dados 2: " << " ";
       for (int i = 0; i < dados.size(); ++i) {
@@ -139,7 +129,6 @@ int simulacion() {
       archivo << "\n";
       break;
     case 4:
-      // archivo << "Categoria CUATROS" << std::endl;
       archivo << "Dados 3: " << " ";
       for (int i = 0; i < dados.size(); ++i) {
         archivo << dados[i] << " ";
@@ -148,7 +137,6 @@ int simulacion() {
       archivo << "\n";
       break;
     case 5:
-      // archivo << "Categoria CINCOS" << std::endl;
       archivo << "Dados 4: " << " ";
       for (int i = 0; i < dados.size(); ++i) {
         archivo << dados[i] << " ";
@@ -157,7 +145,6 @@ int simulacion() {
       archivo << "\n";
       break;
     case 6:
-      // archivo << "Categoria SEISES" << std::endl;
       archivo << "Dados 5: " << " ";
       for (int i = 0; i < dados.size(); ++i) {
         archivo << dados[i] << " ";
@@ -166,7 +153,6 @@ int simulacion() {
       archivo << "\n";
       break;
     case 7:
-      // archivo << "Categoria SUERTE" << std::endl;
       archivo << "Dados 6: " << " ";
       for (int i = 0; i < dados.size(); ++i) {
         archivo << dados[i] << " ";
@@ -175,7 +161,6 @@ int simulacion() {
       archivo << "\n";
       break;
     case 8:
-      // archivo << "Categoria TRES DE UN TIPO" << std::endl;
       archivo << "Dados 7: " << " ";
       for (int i = 0; i < dados.size(); ++i) {
         archivo << dados[i] << " ";
@@ -186,7 +171,6 @@ int simulacion() {
       archivo << "\n";
       break;
     case 9:
-      // archivo << "Categoria CUATRO DE UN TIPO" << std::endl;
       archivo << "Dados 8: " << " ";
       for (int i = 0; i < dados.size(); ++i) {
         archivo << dados[i] << " ";
@@ -197,7 +181,6 @@ int simulacion() {
       archivo << "\n";
       break;
     case 10:
-      // archivo << "Categoria CINCO DE UN TIPO" << std::endl;
       archivo << "Dados 9: " << " ";
       for (int i = 0; i < dados.size(); ++i) {
         archivo << dados[i] << " ";
@@ -208,7 +191,6 @@ int simulacion() {
       archivo << "\n";
       break;
     case 11:
-      //  archivo << "Categoria SECUENCIA CORTA" << std::endl;
       archivo << "Dados 10: " << " ";
       for (int i = 0; i < dados.size(); ++i) {
         archivo << dados[i] << " ";
@@ -219,7 +201,6 @@ int simulacion() {
       archivo << "\n";
       break;
     case 12:
-      //  archivo << "Categoria SECUENCIA LARGA" << std::endl;
       archivo << "Dados 11: " << " ";
       for (int i = 0; i < dados.size(); ++i) {
         archivo << dados[i] << " ";
@@ -230,7 +211,6 @@ int simulacion() {
       archivo << "\n";
       break;
     case 13:
-      // std::cout << "Categoria FULL HOUSE" << std::endl;
       archivo << "Dados 12: " << " ";
       for (int i = 0; i < dados.size(); ++i) {
         archivo << dados[i] << " ";
