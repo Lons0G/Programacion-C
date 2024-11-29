@@ -6,7 +6,7 @@
 int main() {
   float diff;
   const int row_A = 100;
-  const int col_A = 1000;
+  const int col_A = 500;
   const int col_B = 500;
   const int num_trails = 10;
 
@@ -18,12 +18,12 @@ int main() {
 
   for (int i = 0; i < row_A; i++) {
     for (int j = 0; j < col_A; j++) {
-      A[i][j] = (float)(rand() % 1000) / 800.0f;
+      A[i][j] = rand() % 10;
     }
   }
   for (int i = 0; i < col_A; i++) {
     for (int j = 0; j < col_B; j++) {
-      B[i][j] = (float)(rand() % 1000) / 800.0f;
+      B[i][j] = rand() % 10;
     }
   }
 
@@ -63,13 +63,13 @@ int main() {
   diff = (((float)t2 - (float)t1) / CLOCKS_PER_SEC) * 1000;
   printf("Tiempo de ejecucion con intrinsics AVX: %f ms\n", diff);
 
-  printf("Primeros elementos de la matriz C:\n");
-  for (int i = 0; i < row_A; i++) {
-    for (int j = 0; j < col_B; j++) {
-      printf("%f ", C[i][j]);
-    }
-    printf("\n");
-  }
+  // printf("Primeros elementos de la matriz C:\n");
+  // for (int i = 0; i < row_A; i++) {
+  //   for (int j = 0; j < col_B; j++) {
+  //     printf("%f ", C[i][j]);
+  //   }
+  //   printf("\n");
+  // }
 
   return 0;
 }

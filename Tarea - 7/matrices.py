@@ -17,11 +17,10 @@ def multiplicar_matrices(A, B):
     return C 
 
 
-A = np.random.rand(10, 10)
-B = np.random.rand(10, 10)
+start_time = time.time()
+A = np.random.rand(100, 500)
+B = np.random.rand(500, 100)
 
-start_time = time.perf_counter()
 Resultado = multiplicar_matrices(A, B)
-end_time = time.perf_counter()
-print('resultado: ', Resultado)
+end_time = time.time()
 print('tiempo: ', str(end_time - start_time))
